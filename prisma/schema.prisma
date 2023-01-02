@@ -10,8 +10,24 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Vote {
+    id String @id @default(cuid())
+
+    votesFor       Block?  @relation(name: "votesFor", fields: [votesForId], references: [id])
+    votesForId     String?
+
+    votesAgainst   Block?  @relation(name: "votesAgainst", fields: [votesAgainstId], references: [id])
+    votesAgainstId String?
+
+}
+
+model Block {
+    id           String   @id @default(cuid())
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    imageURL     String
+    name         String
+
+    votesFor     Vote[]   @relation("votesFor")
+    votesAgainst Vote[]   @relation("votesAgainst")
 }
