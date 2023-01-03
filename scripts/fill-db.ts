@@ -20,12 +20,12 @@ export class BlockScraper {
         for (let i = 0; i < blockData.length; i++) {
             const name = $(blockData[i]).find(".lightbox-caption").text();
             if(name == "" || name === undefined) continue;
-            const imageURL = $(blockData[i]).find("img").attr("data-src")
-            if(imageURL == "" || imageURL === undefined) continue;
+            const imageName = $(blockData[i]).find("img").attr("data-src")
+            if(imageName == "" || imageName === undefined) continue;
            
             outputData.push({
                 name,
-                imageURL
+                imageURL: imageName
             })
         }
 
@@ -36,7 +36,7 @@ export class BlockScraper {
 async function main() {
     const scraper = new BlockScraper();
     const data = await scraper.scrapeBlocks("https://minecraft-archive.fandom.com/wiki/Blocks/Gallery");
-
+    console.log(data)
     const creation = await prisma.block.createMany({
         data: data 
     })  
