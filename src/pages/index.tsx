@@ -11,7 +11,7 @@ const Block = ({ block, vote }: { block: Block, vote: () => void }) => {
             onClick={vote}
             className="animate-fade-in text-center p-10 flex flex-col items-center bg-slate-800 shadow-slate-900 rounded shadow-sm cursor-pointer">
 
-            <Image width={256} height={256} className="h-64 w-64 object-contain" src={block.imageURL} />
+            <Image alt="" width={256} height={256} className="h-64 w-64 object-contain" src={block.imageURL} />
             <div className="h-4" />
             <div className="w-64 h-16 text-white text-2xl text-center">{block.name}</div>
         </div>);
