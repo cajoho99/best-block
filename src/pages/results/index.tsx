@@ -4,9 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { api } from "../../utils/api"
 
-const BlockListing = () => {
-    return <div>listing</div>
-}
 
 const ResultPage: NextPage = () => {
     const { data: allBlocks } = api.blocks.getAll.useQuery()
