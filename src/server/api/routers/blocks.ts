@@ -11,7 +11,7 @@ export const blocksRouter = createTRPCRouter({
     getBlockPair: publicProcedure.query(async () => {
         const [a, b] = getRandomPair();
 
-        const pairOfBlocks = await prisma.block.findMany({ where: { id: { in: [a, b] } }});
+        const pairOfBlocks = await prisma.block.findMany({ where: { id: { in: [a, b] } } });
 
         if (pairOfBlocks.length !== 2) throw new Error("Did not find two blocks")
 
@@ -20,4 +20,16 @@ export const blocksRouter = createTRPCRouter({
             secondBlock: pairOfBlocks[1]
         }
     }),
+    castVote: publicProcedure
+        .input(z.object({ votedForId: z.number(), votedAgainstId: z.number() }))
+        .mutation(async ({ ctx, input }) => {
+        const voteInDb = await ctx.prisma.vote.create({data: {
+           votedForId: input.votedForId,
+           votedAgainstId: input.votedAgainstId
+        }})
+
+        return {success: true, vote: voteInDb}
+    })
+
+
 })

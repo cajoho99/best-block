@@ -13,21 +13,20 @@ datasource db {
 model Vote {
     id String @id @default(cuid())
 
-    votesFor       Block?  @relation(name: "votesFor", fields: [votesForId], references: [id])
-    votesForId     Int 
+    votedFor   Block? @relation(name: "votedFor", fields: [votedForId], references: [id])
+    votedForId Int
 
-    votesAgainst   Block?  @relation(name: "votesAgainst", fields: [votesAgainstId], references: [id])
-    votesAgainstId Int
-
+    votedAgainst   Block? @relation(name: "votedAgainst", fields: [votedAgainstId], references: [id])
+    votedAgainstId Int
 }
 
 model Block {
-    id           Int   @id 
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    imageURL     String
-    name         String
+    id        Int      @id
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    imageURL  String
+    name      String
 
-    votesFor     Vote[]   @relation("votesFor")
-    votesAgainst Vote[]   @relation("votesAgainst")
+    votesFor     Vote[] @relation("votedFor")
+    votesAgainst Vote[] @relation("votedAgainst")
 }
