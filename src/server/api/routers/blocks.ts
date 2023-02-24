@@ -20,10 +20,10 @@ export const blocksRouter = createTRPCRouter({
             }
         });
     }),
-    getBlockPair: publicProcedure.query(async () => {
+    getBlockPair: publicProcedure.query(async ({ctx}) => {
         const [a, b] = getRandomPair();
 
-        const pairOfBlocks = await prisma.block.findMany({ where: { id: { in: [a, b] } } });
+        const pairOfBlocks = await ctx.prisma.block.findMany({ where: { id: { in: [a, b] } } });
 
         if (pairOfBlocks.length !== 2) throw new Error("Did not find two blocks")
 
