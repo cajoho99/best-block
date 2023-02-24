@@ -1,5 +1,6 @@
 import { inferAsyncReturnType } from "@trpc/server"
 import { NextPage } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { api } from "../../utils/api"
 
@@ -43,7 +44,7 @@ const ResultPage: NextPage = () => {
                             return (
                                 <div key={index} className="p-4 flex flex-row border-white border-b-2 items-center">
                                     <span>{index + 1}.</span>
-                                    <img className="w-16 h-16 pl-4 object-contain" alt="" src={block.imageURL} />
+                                    <Image width={64} height={64} className="w-16 h-16 pl-4 object-contain" alt="" src={block.imageURL} />
                                     <span className="pl-4 grow">{block.name}</span>
                                     <span className="justify-end">{generateDiff(block).toFixed(2)}%</span>
                                 </div>
