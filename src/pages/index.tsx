@@ -1,5 +1,6 @@
 import { Block } from "@prisma/client";
 import { type NextPage } from "next";
+import Link from "next/link";
 
 import { api } from "../utils/api";
 
@@ -45,8 +46,9 @@ const Home: NextPage = () => {
     }
 
     return (
-        <div className="w-screen h-screen bg-slate-900 flex flex-col items-center justify-center">
-            <h1 className="text-white text-4xl p-8">Which is the best block of:</h1>
+        <div className="w-screen h-screen text-white bg-slate-900 flex flex-col items-center justify-center">
+            <h1 className="text-4xl p-8">Which is the best block of:</h1>
+            <Link className="underline" href = "/results">Results</Link>
             {blockPair && (<div className="flex flex-row items-center grow">
                 <Block block={blockPair.firstBlock!} vote={() => { castVote(blockPair.firstBlock!.id) }} />
                 <span className="m-8 text-white">vs</span>

@@ -6,7 +6,19 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const blocksRouter = createTRPCRouter({
     getAll: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.block.findMany();
+        return ctx.prisma.block.findMany({
+            select: {
+                id: true,
+                name: true,
+                imageURL: true,
+                _count: {
+                    select: {
+                        votesFor: true,
+                        votesAgainst: true
+                    }
+                }
+            }
+        });
     }),
     getBlockPair: publicProcedure.query(async () => {
         const [a, b] = getRandomPair();
@@ -23,13 +35,15 @@ export const blocksRouter = createTRPCRouter({
     castVote: publicProcedure
         .input(z.object({ votedForId: z.number(), votedAgainstId: z.number() }))
         .mutation(async ({ ctx, input }) => {
-        const voteInDb = await ctx.prisma.vote.create({data: {
-           votedForId: input.votedForId,
-           votedAgainstId: input.votedAgainstId
-        }})
+            const voteInDb = await ctx.prisma.vote.create({
+                data: {
+                    votedForId: input.votedForId,
+                    votedAgainstId: input.votedAgainstId
+                }
+            })
 
-        return {success: true, vote: voteInDb}
-    })
+            return { success: true, vote: voteInDb }
+        })
 
 
 })
