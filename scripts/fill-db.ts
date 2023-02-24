@@ -18,7 +18,7 @@ export class BlockScraper {
         const response = await fetch(url);
         const blocks = await response.json();
         const outputData = []
-
+        let index = 0;
         for (const block of blocks) {
 
             if (!await fileExists('./public/blocks/' + block.namespacedId + '.png')) {
@@ -27,9 +27,11 @@ export class BlockScraper {
             }
             outputData.push({
                 name: block.name,
-                imageURL: '/blocks/' + block.namespacedId + '.png'
+                imageURL: '/blocks/' + block.namespacedId + '.png',
+                id: index
             })
 
+            index++
         }
         return outputData
     }

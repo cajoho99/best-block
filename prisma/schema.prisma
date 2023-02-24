@@ -14,15 +14,15 @@ model Vote {
     id String @id @default(cuid())
 
     votesFor       Block?  @relation(name: "votesFor", fields: [votesForId], references: [id])
-    votesForId     String?
+    votesForId     Int 
 
     votesAgainst   Block?  @relation(name: "votesAgainst", fields: [votesAgainstId], references: [id])
-    votesAgainstId String?
+    votesAgainstId Int
 
 }
 
 model Block {
-    id           String   @id @default(cuid())
+    id           Int   @id 
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     imageURL     String
