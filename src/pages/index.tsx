@@ -47,7 +47,7 @@ const Home: NextPage = () => {
     }
 
     return (
-        <div className="w-screen h-screen text-white bg-slate-900 flex flex-col items-center justify-center">
+        <div className="w-screen absolute inset-0 md:h-screen text-white bg-slate-900 flex flex-col items-center justify-center">
             <h1 className="text-4xl p-2 pt-4 md:p-8 text-center">Which is the best block out of:</h1>
             {blockPair && (<div className="flex flex-col md:flex-row items-center grow">
                 <Block block={blockPair.firstBlock!} vote={() => { castVote(blockPair.firstBlock!.id) }} />
